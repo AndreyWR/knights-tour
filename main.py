@@ -2,9 +2,9 @@ import tkinter as tk
 import telainicial as ti
 
 def main():
-    # Definicao do widget de maior prioridade, instanciando a tela e executando o programa
+    # Definition of the highest priority widget, instantiating the screen and running the program
     toplevel = tk.Tk()
-    tela = ti.TelaInicial(toplevel)
+    tela = ti.HomeScreen(toplevel)
     toplevel.mainloop()
 
 

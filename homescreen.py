@@ -1,46 +1,46 @@
-from tkinter import *
+AStarReturnValuefrom tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
-import profundidade as pf
+import depthfirstsearch as dpth
 from astar import *
 import time
 
-class TelaInicial:
+class HomeScreen:
     def __init__(self,toplevel):
         self.toplevel = toplevel
-        self.toplevel.title('Informações do tabuleiro')
+        self.toplevel.title('Board information')
 
-        self.canvas = Canvas(toplevel, width=300, height=10) # Definindo o canvas que vai guardar os quadrados dos tabuleiros
+        self.canvas = Canvas(toplevel, width=300, height=10) # Defining the canvas that will store the squares on the boards
         self.canvas.pack()
         self.tab = None
 
-        self.frame1 = Frame(toplevel) # Criando um frame com tk e colocando no toplevel
+        self.frame1 = Frame(toplevel) # Creating a frame with tk and placing it on toplevel
         self.frame1.pack()
 
-        self.frame2 = Frame(toplevel) # Criando um frame com tk e colocando no toplevel
+        self.frame2 = Frame(toplevel) # Creating a frame with tk and placing it on toplevel
         self.frame2.pack()
 
-        self.frame3 = Frame(toplevel) # Criando um frame com tk e colocando no toplevel
+        self.frame3 = Frame(toplevel) # Creating a frame with tk and placing it on toplevel
         self.frame3.pack()
 
-        self.frame4 = Frame(toplevel)
+        self.frame4 = Frame(toplevel) # Creating a frame with tk and placing it on toplevel
         self.frame4.pack()
 
-        self.frame5 = Frame(toplevel)
+        self.frame5 = Frame(toplevel) # Creating a frame with tk and placing it on toplevel
         self.frame5.pack()
 
-        self.frame6 = Frame(toplevel)
+        self.frame6 = Frame(toplevel) # Creating a frame with tk and placing it on toplevel
         self.frame6.pack()
 
         vlist = ["Depth", "A*"]
 
         Label(self.frame1, text='Nº Lines:', width=8).pack(side=LEFT)
-        self.linha = Entry(self.frame1, width=6)
-        self.linha.pack(side=LEFT)
+        self.line = Entry(self.frame1, width=6)
+        self.line.pack(side=LEFT)
 
         Label(self.frame2, text='Nº Columns:', width=8).pack(side=LEFT)
-        self.coluna = Entry(self.frame2, width=6)
-        self.coluna.pack(side=LEFT)
+        self.column = Entry(self.frame2, width=6)
+        self.column.pack(side=LEFT)
 
         Label(self.frame3, text='Pos X:', width=8).pack(side=LEFT)
         self.posx = Entry(self.frame3, width=6)
@@ -55,26 +55,26 @@ class TelaInicial:
         self.combo.set("Choose an option")
         self.combo.pack(padx=5, pady=5)
 
-        # Botão Executar
-        self.bexec = Button(self.frame6, text='Run', command=self.retornavalor)
-        self.bexec['padx'],self.bexec['pady'] = 10, 5
-        self.bexec.pack(side=LEFT)
+        # Run Button
+        self.brun = Button(self.frame6, text='Run', command=self.ReturnValue)
+        self.brun['padx'],self.brun['pady'] = 10, 5
+        self.brun.pack(side=LEFT)
 
-        # Botão Fechar
-        self.bfechar = Button(self.frame6, text='Close', command=self.fechar)
-        self.bfechar['padx'],self.bfechar['pady'] = 10, 5
-        self.bfechar.pack(side=LEFT)
+        # Close Button
+        self.bclose = Button(self.frame6, text='Close', command=self.Close)
+        self.bclose['padx'],self.bclose['pady'] = 10, 5
+        self.bclose.pack(side=LEFT)
 
-    def retornavalor(self):
+    def ReturnValue(self):
 
         try:
-            val = int(self.linha.get())
+            val = int(self.line.get())
         except ValueError:
             messagebox.showerror("Error", "Enter an integer value")
             return
 
         try:
-            val = int(self.coluna.get())
+            val = int(self.column.get())
         except ValueError:
             messagebox.showerror("Error", "Enter an integer value")
             return
@@ -91,12 +91,12 @@ class TelaInicial:
             messagebox.showerror("Error", "Enter an integer value")
             return
 
-        buscaprof = pf.profundidade(int(self.posx.get()), int(self.posy.get()), int(self.linha.get()))
-        buscaastar = aestrela(int(self.posx.get()), int(self.posy.get()), int(self.linha.get()))
+        searchdepth = dpth.Depth(int(self.posx.get()), int(self.posy.get()), int(self.line.get()))
+        searchastar = AStar(int(self.posx.get()), int(self.posy.get()), int(self.line.get()))
 
         if self.combo.get() == "Depth":
             start = time.time()
-            g = buscaprof.find_solution_for()
+            g = searchdepth.find_solution_for()
             end = time.time()
             print('Time: {}'.format(end - start))
             print('Graph: {}'.format(g))
@@ -105,7 +105,7 @@ class TelaInicial:
 
         elif self.combo.get() == "A*":
             start = time.time()
-            g = buscaastar.find_solution_for(buscaastar.warnsdorffs_heuristic)
+            g = searchastar.find_solution_for(searchastar.warnsdorffs_heuristic)
             end = time.time()
             print('Time: {}'.format(end - start))
             print('Graph: {}'.format(g))
@@ -114,4 +114,4 @@ class TelaInicial:
         else:
             messagebox.showerror("Error", "Select one of the valid methods")
 
-    def fechar(self): self.toplevel.destroy()
+    def Close(self): self.toplevel.destroy()
