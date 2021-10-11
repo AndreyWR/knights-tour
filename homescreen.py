@@ -1,8 +1,9 @@
-AStarReturnValuefrom tkinter import *
+from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 import depthfirstsearch as dpth
 from astar import *
+import board as bd
 import time
 
 class HomeScreen:
@@ -64,6 +65,25 @@ class HomeScreen:
         self.bclose = Button(self.frame6, text='Close', command=self.Close)
         self.bclose['padx'],self.bclose['pady'] = 10, 5
         self.bclose.pack(side=LEFT)
+
+        # Create Board
+        self.bboard = Button(self.frame6, text='Board', command=self.createboard)
+        self.bboard['padx'],self.bboard['pady'] = 10, 5
+        self.bboard.pack(side=LEFT)
+
+
+    def createboard(self):
+        print('self.tab: {}'.format(self.tab))
+
+        if self.tab is not None:
+            self.tab.cleanboard()
+
+        self.board = bd.Board(self.toplevel, lines = int(self.line.get()), columns = int(self.column.get()), size = 32)
+        self.board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
+        horse = PhotoImage(file='horse2.png')
+        self.toplevel.horse = horse
+        self.tab.addpiece("horse", horse, int(self.posx.get()), int(self.posy.get()))
+
 
     def ReturnValue(self):
 
