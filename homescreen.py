@@ -78,8 +78,8 @@ class HomeScreen:
         if self.tab is not None:
             self.tab.cleanboard()
 
-        self.board = bd.Board(self.toplevel, lines = int(self.line.get()), columns = int(self.column.get()), size = 32)
-        self.board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
+        self.tab = bd.Board(self.toplevel, lines = int(self.line.get()), columns = int(self.column.get()), size = 32)
+        self.tab.pack(side="top", fill="both", expand="true", padx=4, pady=4)
         horse = PhotoImage(file='horse2.png')
         self.toplevel.horse = horse
         self.tab.addpiece("horse", horse, int(self.posx.get()), int(self.posy.get()))

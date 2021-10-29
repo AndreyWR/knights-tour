@@ -3,6 +3,7 @@ import tkinter as tk
 class Board(tk.Frame):
     def __init__(self, toplevel, lines, columns, size, color1="white", color2="blue"):
 
+        self.size = size
         self.lines = lines
         self.columns = columns
         self.color1 = color1
@@ -57,7 +58,7 @@ class Board(tk.Frame):
                 y2 = y1 + self.size
 
                 self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill=color, tags="square")
-                color = self.cor1 if color == self.color2 else self.color2
+                color = self.color1 if color == self.color2 else self.color2
 
             for name in self.pieces:
                 self.putpiece(name, self.pieces[name][0], self.pieces[name][1])
