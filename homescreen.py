@@ -33,21 +33,24 @@ class HomeScreen:
         self.frame6 = Frame(toplevel) # Creating a frame with tk and placing it on toplevel
         self.frame6.pack()
 
+        self.frame7 = Frame(toplevel) # Creating a frame with tk and placing it on toplevel
+        self.frame7.pack()
+
         vlist = ["Depth", "A*"]
 
-        Label(self.frame1, text='Nº Lines:', width=8).pack(side=LEFT)
+        Label(self.frame1, text='Nº Lines:', width=10).pack(side=LEFT)
         self.line = Entry(self.frame1, width=6)
         self.line.pack(side=LEFT)
 
-        Label(self.frame2, text='Nº Columns:', width=8).pack(side=LEFT)
+        Label(self.frame2, text='Nº Columns:', width=10).pack(side=LEFT)
         self.column = Entry(self.frame2, width=6)
         self.column.pack(side=LEFT)
 
-        Label(self.frame3, text='Pos X:', width=8).pack(side=LEFT)
+        Label(self.frame3, text='Pos X:', width=10).pack(side=LEFT)
         self.posx = Entry(self.frame3, width=6)
         self.posx.pack(side=LEFT)
 
-        Label(self.frame4, text='Pos Y:', width=8).pack(side=LEFT)
+        Label(self.frame4, text='Pos Y:', width=10).pack(side=LEFT)
         self.posy = Entry(self.frame4, width=6)
         self.posy.pack(side=LEFT)
 
@@ -113,23 +116,27 @@ class HomeScreen:
 
         searchdepth = dpth.Depth(int(self.posx.get()), int(self.posy.get()), int(self.line.get()))
         searchastar = AStar(int(self.posx.get()), int(self.posy.get()), int(self.line.get()))
+        output = ''
 
         if self.combo.get() == "Depth":
             start = time.time()
             g = searchdepth.find_solution_for()
             end = time.time()
-            print('Time: {}'.format(end - start))
-            print('Graph: {}'.format(g))
-            print('Number of vertices in the graph: {}'.format(len(g)))
-
+            output = 'Time: ' + str((end - start)) + '\nNumber of vertices in the graph: ' + str(len(g))
+            #print('Time: {}'.format(end - start))
+            #print('Graph: {}'.format(g))
+            #print('Number of vertices in the graph: {}'.format(len(g)))
+            Label(self.frame7, text=output, width=100).pack(side=LEFT, expand=True)
 
         elif self.combo.get() == "A*":
             start = time.time()
             g = searchastar.find_solution_for(searchastar.warnsdorffs_heuristic)
             end = time.time()
-            print('Time: {}'.format(end - start))
-            print('Graph: {}'.format(g))
-            print('Number of vertices in the graph: {}'.format(len(g)))
+            output = 'Time: ' + str((end - start)) + '\nNumber of vertices in the graph: ' + str(len(g))
+            #print('Time: {}'.format(end - start))
+            #print('Graph: {}'.format(g))
+            #print('Number of vertices in the graph: {}'.format(len(g)))
+            Label(self.frame7, text=output, width=10).pack(side=LEFT, expand=True)
 
         else:
             messagebox.showerror("Error", "Select one of the valid methods")
