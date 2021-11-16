@@ -70,13 +70,13 @@ class HomeScreen:
         self.bclose.pack(side=LEFT)
 
         # Create Board
-        self.bboard = Button(self.frame6, text='Board', command=self.createboard)
+        '''self.bboard = Button(self.frame6, text='Board', command=self.createboard)
         self.bboard['padx'],self.bboard['pady'] = 10, 5
-        self.bboard.pack(side=LEFT)
+        self.bboard.pack(side=LEFT)'''
 
 
-    def createboard(self):
-        print('self.tab: {}'.format(self.tab))
+    def createboard(self, k):
+        #print('self.tab: {}'.format(self.tab))
 
         if self.tab is not None:
             self.tab.cleanboard()
@@ -85,7 +85,7 @@ class HomeScreen:
         self.tab.pack(side="top", fill="both", expand="true", padx=4, pady=4)
         horse = PhotoImage(file='horse2.png')
         self.toplevel.horse = horse
-        self.tab.addpiece("horse", horse, int(self.posx.get()), int(self.posy.get()))
+        self.tab.addpiece("horse", horse, int(k[0]), int(k[1]))
 
 
     def ReturnValue(self):
@@ -140,5 +140,18 @@ class HomeScreen:
 
         else:
             messagebox.showerror("Error", "Select one of the valid methods")
+
+        k=[]
+        c=0
+        for L in g:
+            for i in L:
+                k.append(i)
+            if c == 0:
+                self.createboard(k)
+            else:
+                self.tab.putpiece("horse", int(k[0]), int(k[1]))
+            c += 1
+            time.sleep(2)
+            k=[]
 
     def Close(self): self.toplevel.destroy()

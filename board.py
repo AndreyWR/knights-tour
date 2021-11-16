@@ -20,17 +20,17 @@ class Board(tk.Frame):
         self.canvas = tk.Canvas(self, borderwidth=0, highlightthickness=0,
                                 width=canvas_width, height=canvas_height, background="bisque")
         self.canvas.pack(side="top", fill="both", expand=True, padx=2, pady=2)
-
         self.canvas.bind("<Configure>", self.refresh)
 
 
     def cleanboard(self):
         for widget in self.frame.winfo_children():
-            widget.destroy()
+            if widget is not None:
+                widget.destroy()
 
 
     def addpiece(self, name, image, line=0, column=0):
-        self.canvas.create_image(0, 0, image=image, tags=(name, "piece"), anchor="c")
+        self.canvas.create_image(line, column, image=image, tags=(name, "piece"), anchor="c")
         self.putpiece(name, line, column)
 
 
@@ -39,6 +39,7 @@ class Board(tk.Frame):
         x0 = (column * self.size) + int(self.size/2)
         y0 = (line * self.size) + int(self.size/2)
         self.canvas.coords(name, x0, y0)
+        self.canvas.update()
 
 
     def refresh(self, event):
