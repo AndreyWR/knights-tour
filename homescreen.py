@@ -69,14 +69,8 @@ class HomeScreen:
         self.bclose['padx'],self.bclose['pady'] = 10, 5
         self.bclose.pack(side=LEFT)
 
-        # Create Board
-        '''self.bboard = Button(self.frame6, text='Board', command=self.createboard)
-        self.bboard['padx'],self.bboard['pady'] = 10, 5
-        self.bboard.pack(side=LEFT)'''
-
 
     def createboard(self, k):
-        #print('self.tab: {}'.format(self.tab))
 
         if self.tab is not None:
             self.tab.cleanboard()
@@ -123,9 +117,6 @@ class HomeScreen:
             g = searchdepth.find_solution_for()
             end = time.time()
             output = 'Time: ' + str((end - start)) + '\nNumber of vertices in the graph: ' + str(len(g))
-            #print('Time: {}'.format(end - start))
-            #print('Graph: {}'.format(g))
-            #print('Number of vertices in the graph: {}'.format(len(g)))
             Label(self.frame7, text=output, width=100).pack(side=LEFT, expand=True)
 
         elif self.combo.get() == "A*":
@@ -133,9 +124,6 @@ class HomeScreen:
             g = searchastar.find_solution_for(searchastar.warnsdorffs_heuristic)
             end = time.time()
             output = 'Time: ' + str((end - start)) + '\nNumber of vertices in the graph: ' + str(len(g))
-            #print('Time: {}'.format(end - start))
-            #print('Graph: {}'.format(g))
-            #print('Number of vertices in the graph: {}'.format(len(g)))
             Label(self.frame7, text=output, width=10).pack(side=LEFT, expand=True)
 
         else:
