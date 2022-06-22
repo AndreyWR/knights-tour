@@ -12,7 +12,7 @@ It also shows the number of houses visited by the horse at the end of the run.
 - [X] Choose the size of the board
 - [X] Choose the house where the horse begins the tour
 - [X] Choose between A* and Depth First Search algorithms
-- [ ] Update the board with the visited houses
+- [X] Update the board with the visited houses
 
 ## Technologies Used:
 
