@@ -1,6 +1,7 @@
 from collections import defaultdict
 from pythonds.graphs import Graph
 
+
 class Depth:
     def __init__(self, positionx, positiony, boardsize):
         self.positionx = positionx

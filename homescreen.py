@@ -6,16 +6,19 @@ from astar import *
 import board as bd
 import time
 
+
 class HomeScreen:
     def __init__(self,toplevel):
         self.toplevel = toplevel
         self.toplevel.title('Board information')
 
-        self.canvas = Canvas(toplevel, width=300, height=10) # Defining the canvas that will store the squares on the boards
+        # Defining the canvas that will store the squares on the boards
+        self.canvas = Canvas(toplevel, width=300, height=10)
         self.canvas.pack()
         self.tab = None
 
-        self.frame1 = Frame(toplevel) # Creating a frame with tk and placing it on toplevel
+        # Creating a frame with tk and placing it on toplevel
+        self.frame1 = Frame(toplevel)
         self.frame1.pack()
 
         self.frame2 = Frame(toplevel) # Creating a frame with tk and placing it on toplevel
@@ -37,6 +40,7 @@ class HomeScreen:
         self.frame7.pack()
 
         vlist = ["Depth", "A*"]
+        self.horse = PhotoImage(file='horse2.png')
 
         Label(self.frame1, text='Nº Lines:', width=10).pack(side=LEFT)
         self.line = Entry(self.frame1, width=6)
@@ -69,21 +73,17 @@ class HomeScreen:
         self.bclose['padx'],self.bclose['pady'] = 10, 5
         self.bclose.pack(side=LEFT)
 
-
     def createboard(self, k):
-
         if self.tab is not None:
             self.tab.cleanboard()
 
         self.tab = bd.Board(self.toplevel, lines = int(self.line.get()), columns = int(self.column.get()), size = 32)
         self.tab.pack(side="top", fill="both", expand="true", padx=4, pady=4)
-        horse = PhotoImage(file='horse2.png')
-        self.toplevel.horse = horse
-        self.tab.addpiece("horse", horse, int(k[0]), int(k[1]))
-
+        #horse = PhotoImage(file='horse2.png')
+        self.toplevel.horse = self.horse
+        self.tab.addpiece("horse", self.horse, int(k[0]), int(k[1]))
 
     def ReturnValue(self):
-
         try:
             val = int(self.line.get())
         except ValueError:
@@ -137,6 +137,7 @@ class HomeScreen:
             if c == 0:
                 self.createboard(k)
             else:
+                # self.tab.addpiece("horse", self.horse, int(k[0]), int(k[1]))
                 self.tab.putpiece("horse", int(k[0]), int(k[1]))
             c += 1
             time.sleep(2)

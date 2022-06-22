@@ -1,5 +1,6 @@
 import tkinter as tk
 
+
 class Board(tk.Frame):
     def __init__(self, toplevel, lines, columns, size, color1="white", color2="blue"):
 
@@ -22,24 +23,33 @@ class Board(tk.Frame):
         self.canvas.pack(side="top", fill="both", expand=True, padx=2, pady=2)
         self.canvas.bind("<Configure>", self.refresh)
 
-
     def cleanboard(self):
         for widget in self.frame.winfo_children():
             if widget is not None:
                 widget.destroy()
 
-
     def addpiece(self, name, image, line=0, column=0):
         self.canvas.create_image(line, column, image=image, tags=(name, "piece"), anchor="c")
         self.putpiece(name, line, column)
 
-
     def putpiece(self, name, line, column):
-        self.pieces[name] = (line, column)
-        x0 = (column * self.size) + int(self.size/2)
-        y0 = (line * self.size) + int(self.size/2)
-        self.canvas.coords(name, x0, y0)
         self.canvas.update()
+
+        self.pieces[name] = (line, column)
+        x0 = (column * self.size) + int(self.size / 2)
+        y0 = (line * self.size) + int(self.size / 2)
+        self.canvas.coords(name, x0, y0)
+
+        self.canvas.update()
+
+        # Painting red
+        x1 = (column * self.size)
+        y1 = (line * self.size)
+        x2 = x1 + self.size
+        y2 = y1 + self.size
+
+        self.canvas.create_rectangle(x1, y1, x2, y2, fill="red", tags="square")
+
 
 
     def refresh(self, event):
